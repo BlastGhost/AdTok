@@ -2,6 +2,7 @@ package com.example.adtok.ui.theme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,6 +33,7 @@ class Modifiers {
         val gapLarge = paddingLarge
 
 
+        val fontSizeExtraSmall = TextUnit(10f, TextUnitType.Sp)
         val fontSizeSmall = TextUnit(14f, TextUnitType.Sp)
         val fontSizeMedium = TextUnit(18f, TextUnitType.Sp)
         val fontSizeLarge = TextUnit(24f, TextUnitType.Sp)
@@ -54,7 +56,8 @@ class Modifiers {
 
         val BUTTON = Modifier
             .height(52.dp)
-            .width(52.dp)
+            // .width(52.dp)
+            .aspectRatio(1f / 1f)
             .clip(borderRadiusMedium)
             // .background(Color.DarkGray)
             // .border(2.dp, Color.White, shape = borderRadiusMedium)
