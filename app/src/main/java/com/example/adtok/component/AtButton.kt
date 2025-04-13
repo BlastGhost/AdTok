@@ -6,9 +6,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -45,18 +47,20 @@ fun AtButton(
                 Icon(
                     icon,
                     label,
-                    tint = Color.White
+                    tint = Color.White,
                 )
             else
                 Text(
                     label,
-                    color = Color.White
+                    color = Color.White,
+                    fontSize = Modifiers.fontSizeSmall,
                 )
 
             if (sub != null)
                 Text(
                     sub,
                     color = Color.White,
+                    fontSize = Modifiers.fontSizeExtraSmall,
                     fontWeight = FontWeight.Light
                 )
         }
@@ -86,5 +90,14 @@ private fun ButtonPreview() {
             icon = Icons.Rounded.Person,
             onClick = {},
         )
+
+        IconButton(
+            {}
+        ) {
+            Column {
+                Icon(Icons.Rounded.Edit, contentDescription = "Test", tint = Color.White)
+                Text("Test")
+            }
+        }
     }
 }
