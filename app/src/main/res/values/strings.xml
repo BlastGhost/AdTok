@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AdTok</string>
+
+    <string name="bottom_nav_bar_profile">Me</string>
+    <string name="bottom_nav_bar_profile_tooltip">Me</string>
+
+    <string name="bottom_nav_bar_home">Home</string>
 </resources>
