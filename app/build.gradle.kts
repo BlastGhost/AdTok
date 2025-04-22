@@ -60,4 +60,5 @@ dependencies {
     implementation(libs.play.services.ads)
     implementation(libs.volley)
     implementation(libs.androidx.fragment.ktx)
+    implementation(libs.coil.compose)
 }

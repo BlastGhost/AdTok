@@ -3,6 +3,7 @@ package com.example.adtok
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsets
 import android.widget.FrameLayout
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -21,6 +22,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.example.adtok.activities.AdManager
@@ -32,11 +35,22 @@ import com.example.adtok.component.AdTokUI
 import com.example.adtok.component.BottomNavBar
 import com.example.adtok.component.Swiper
 import com.example.adtok.ui.theme.AdTokTheme
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.RequestConfiguration
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+
+        this.initAdMob()
+
         setContent {
             AdTokTheme {
                 Scaffold(
@@ -57,6 +71,23 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+    }
+
+
+
+    private fun initAdMob() {
+        val backgroundScope = CoroutineScope(Dispatchers.IO)
+        backgroundScope.launch {
+            // Initialize the Google Mobile Ads SDK on a background thread.
+            MobileAds.initialize(this@MainActivity) {}
+        }
+
+        val testDeviceIds = listOf("1731DF315C19FE3286BF6D61D9129B8A")
+        MobileAds.setRequestConfiguration(
+            RequestConfiguration.Builder()
+                .setTestDeviceIds(testDeviceIds)
+                .build()
+        )
     }
 }
 

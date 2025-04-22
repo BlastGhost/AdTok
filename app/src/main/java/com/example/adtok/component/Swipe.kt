@@ -33,7 +33,7 @@ fun <T> Swiper(
 
     val density = Resources.getSystem().displayMetrics.density
     val widthDp = Resources.getSystem().displayMetrics.widthPixels / density
-    val heightDp = (Resources.getSystem().displayMetrics.heightPixels / density).dp - padding
+    val heightDp = (Resources.getSystem().displayMetrics.heightPixels.dp - padding) / density
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),

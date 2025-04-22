@@ -29,32 +29,19 @@ fun Main(
     innerPadding: PaddingValues,
     modifier: Modifier = Modifier
 ) {
-    val contents = IntRange(1, 10).toList()
-
-
+    val contents = IntRange(1, 3).toList()
 
     Swiper(
         contents,
-        padding = innerPadding.calculateBottomPadding() + innerPadding.calculateTopPadding()
+        // padding = innerPadding.calculateBottomPadding() + innerPadding.calculateTopPadding()
     ) { content ->
-        Box(
-            Modifier
-                .fillMaxSize()
-        ) {
-            AdPlaceHolder(content)
-        }
+        val ad = NativeAdManager(content)
 
         Box(
             Modifier
                 .fillMaxSize()
-                // .align(Alignment.TopCenter)
-            ,
-            contentAlignment = Alignment.TopStart
         ) {
-            AdInfo(
-                "Ad : $content",
-                "Brand Name "
-            )
+            AdPlaceHolder(ad)
         }
     }
 }
