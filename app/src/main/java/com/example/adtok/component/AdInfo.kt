@@ -38,7 +38,7 @@ fun AdInfo(
 
 
     Box(
-        Modifier
+        modifier
             .fillMaxWidth()
             .height(80.dp)
             .background(

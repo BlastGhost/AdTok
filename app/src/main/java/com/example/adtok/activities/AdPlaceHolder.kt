@@ -7,9 +7,12 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -95,14 +98,16 @@ fun Ad(
         AdCard(ad)
         Box(
             Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
+                .fillMaxHeight(0.2f)
             // .align(Alignment.TopCenter)
             ,
             contentAlignment = Alignment.TopStart
         ) {
             AdInfo(
-                "${ad?.headline}",
-                "${ad?.body}"
+                ad?.headline ?: "",
+                ad?.body ?: "",
+                modifier = Modifier.matchParentSize()
             )
         }
     }
