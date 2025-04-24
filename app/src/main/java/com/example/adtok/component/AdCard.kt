@@ -1,30 +1,24 @@
 package com.example.adtok.component
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
+import android.graphics.Color
+import android.graphics.Typeface
+import android.util.Log
+import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
+import androidx.compose.ui.viewinterop.AndroidView
+import com.google.android.gms.ads.nativead.MediaView
 import com.google.android.gms.ads.nativead.NativeAd
+import com.google.android.gms.ads.nativead.NativeAdView
 
 @Composable
 fun AdCard(
     ad: NativeAd?,
     modifier: Modifier = Modifier
 ) {
+    /*
     Box(
         Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -39,4 +33,51 @@ fun AdCard(
             contentScale = ContentScale.Fit
         )
     }
+     */
+
+
+    AndroidView(
+        factory = { context ->
+            // NativeAdView racine
+            val adView = NativeAdView(context).apply {
+                layoutParams = FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.MATCH_PARENT
+                )
+            }
+
+            val headline = TextView(context).apply {
+                textSize = 0f
+                setTextColor(Color.TRANSPARENT)
+                setTypeface(null, Typeface.BOLD)
+            }
+
+            val mediaView = MediaView(context).apply {
+                layoutParams = FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.MATCH_PARENT
+                )
+            }
+
+
+            // Lier les vues a NativeAdView
+            adView.headlineView = headline
+            adView.mediaView = mediaView
+
+            (adView.headlineView as? TextView)?.text = ad?.headline
+            (adView.mediaView)?.mediaContent = ad?.mediaContent
+
+            if (ad != null)
+                adView.setNativeAd(ad)
+            else
+                Log.e("AdCard", "Error while loading the Ad in card : ad null")
+
+            adView.addView(mediaView)
+
+
+            return@AndroidView adView
+        },
+        modifier = Modifier
+            .fillMaxSize()
+    )
 }
