@@ -18,25 +18,7 @@ fun AdCard(
     ad: NativeAd?,
     modifier: Modifier = Modifier
 ) {
-    /*
-    Box(
-        Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-
-        AsyncImage(
-            model = ad?.icon?.uri,
-            contentDescription = "Ad Icon",
-            modifier = Modifier
-                .size(50.dp)
-                .padding(end = 16.dp),
-            contentScale = ContentScale.Fit
-        )
-    }
-     */
-
-
-    AndroidView(
+     AndroidView(
         factory = { context ->
             // NativeAdView racine
             val adView = NativeAdView(context).apply {

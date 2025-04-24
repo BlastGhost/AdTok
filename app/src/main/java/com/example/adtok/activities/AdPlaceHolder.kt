@@ -23,9 +23,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -34,6 +37,7 @@ import coil3.compose.AsyncImage
 import com.example.adtok.R
 import com.example.adtok.component.AdCard
 import com.example.adtok.component.AdInfo
+import com.example.adtok.ui.theme.Modifiers
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
@@ -51,7 +55,7 @@ fun AdPlaceHolder(
     val fragmentContainerId = remember { View.generateViewId() }
 
 
-    AndroidView(
+    /*AndroidView(
         factory = { ctx ->
             FrameLayout(ctx).apply {
                 id = fragmentContainerId
@@ -62,6 +66,7 @@ fun AdPlaceHolder(
         },
         modifier = Modifier.fillMaxSize()
     )
+     */
 
 
 
@@ -71,7 +76,16 @@ fun AdPlaceHolder(
         val adLoader = AdLoader.Builder(context, "ca-app-pub-5707841394092803/8125887084")
             .forNativeAd { ad ->
                 nativeAd = ad
-            }
+            }.withNativeAdOptions(
+                NativeAdOptions.Builder()
+                    .setAdChoicesPlacement(NativeAdOptions.ADCHOICES_BOTTOM_LEFT)
+                    .build()
+            )
+            .withAdListener(object : AdListener() {
+                override fun onAdFailedToLoad(error: LoadAdError) {
+                    Log.e("NATIVE_AD", "Failed to load ad: $error")
+                }
+            })
             .build()
 
         adLoader.loadAd(AdRequest.Builder().build())
@@ -80,10 +94,11 @@ fun AdPlaceHolder(
             nativeAd?.destroy()
         }
     }
-        if (nativeAd != null)
-            Ad(nativeAd)
-        else
-            Text("Loading... [HARD]")
+
+    if (nativeAd != null)
+        Ad(nativeAd)
+    else
+        LoadingAd()
 }
 
 
@@ -95,7 +110,12 @@ fun Ad(
     Box(
         Modifier.fillMaxSize()
     ) {
-        AdCard(ad)
+        Box(
+            Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center,
+        ) {
+            AdCard(ad)
+        }
         Box(
             Modifier
                 .fillMaxWidth()
@@ -114,8 +134,26 @@ fun Ad(
 }
 
 
+@Composable
+fun LoadingAd(
+    modifier: Modifier = Modifier
+) {
+    Box(
+        Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(
+            stringResource(R.string.ad_loading),
+            color = Color.White,
+            fontSize = Modifiers.fontSizeLarge,
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+
 @Preview
 @Composable
 private fun PlaceHolderPreview() {
-    AdPlaceHolder(NativeAdManager(0))
+    LoadingAd()
 }
