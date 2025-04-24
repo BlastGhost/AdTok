@@ -1,0 +1,12 @@
+<resources>
+    <string name="bottom_nav_bar_profile">Profile</string>
+    <string name="bottom_nav_bar_profile_tooltip">Profile</string>
+    <string name="bottom_nav_bar_home">Home</string>
+
+    <string name="ad_loading">Chargement…</string>
+    <string name="ad_no_title">Aucun titre</string>
+    <string name="ad_no_description">Aucune description</string>
+
+    <string name="comments">Commentaires</string>
+    <string name="comments_input">Ecrivez un commentaire…</string>
+</resources>
