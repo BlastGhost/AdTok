@@ -64,6 +64,8 @@ AdLoader.Builder(context, "ca-app-pub-...")
 
         adView.setNativeAd(ad)
     }
+
+adLoader.loadAd(AdRequest.Builder().build())
 ```
 
 Or you can show the Native Ad using Compose
