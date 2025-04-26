@@ -37,7 +37,7 @@ fun BottomNavBar(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         AtButton(
-            "AD",
+            stringResource(R.string.bottom_nav_bar_home),
             sub = stringResource(R.string.bottom_nav_bar_home),
             icon = Icons.Rounded.Home,
             onClick = {}
